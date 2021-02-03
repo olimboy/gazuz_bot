@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  mpay:
+    image: svetuz_bot
+    container_name: svetuz_bot
+    build: ./
+    restart: always
+    volumes:
+      - ./:/app
+networks:
+  default:
+    external:
+      name: nginx-proxy
