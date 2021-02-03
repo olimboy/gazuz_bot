@@ -8,6 +8,7 @@ services:
     restart: always
     volumes:
       - ./:/app
+    command: python manage.py migrate
 networks:
   default:
     external:
