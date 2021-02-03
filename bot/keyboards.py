@@ -2,9 +2,9 @@ from telebot.types import (
     InlineKeyboardMarkup, InlineKeyboardButton, 
     ReplyKeyboardMarkup, KeyboardButton
 )
-import regions
-import lang
-import config
+from django.conf import settings as config
+from ek import regions
+from .import lang
 
 
 def provinces() -> tuple[str, InlineKeyboardMarkup]:
@@ -25,9 +25,9 @@ def districts(province_id: str) -> tuple[str, InlineKeyboardMarkup]:
 def menu(province_id, district_id, account=None):
     markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)
     province_name, district_name = regions.province_and_district_by_id(province_id, district_id)
-    markup.add(KeyboardButton('Viloyatlar'))
+    markup.add(KeyboardButton(lang.provinces_btn.get(config.BOT_LANG)))
     if province_name != '' and district_name != '':
         markup.add(province_name + ' | ' + district_name)
     if account:
         markup.add(province_name + ' | ' + district_name + ' | ' + account)
-    return 'Menu', markup
+    return lang.menu.get(config.BOT_LANG), markup

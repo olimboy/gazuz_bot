@@ -1,6 +1,6 @@
 from requests import Session
 from bs4 import BeautifulSoup
-import config
+from django.conf import settings as config
 
 
 def check_balance(account, province_id, district_id):

@@ -1,9 +1,11 @@
 import json
-import config
+from pathlib import Path
+from django.conf import settings as config
 
+dir = Path(__file__).resolve().parent
 regions_json = None
 
-with open('regions.json') as f:
+with open(dir / 'regions.json') as f:
     regions_json = f.read()
 
 regions = json.loads(regions_json)
