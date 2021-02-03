@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  mpay:
+  svetuz_bot:
     image: svetuz_bot
     container_name: svetuz_bot
     build: ./
