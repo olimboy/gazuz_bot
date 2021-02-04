@@ -3,8 +3,7 @@ from django.conf import settings as config
 from ek import api
 import telebot
 from .import keyboards, lang
-
-users = {}
+from bot.models import User
 
 bot = telebot.TeleBot(config.BOT_TOKEN)
 
@@ -36,7 +35,10 @@ def districts(callback: types.CallbackQuery):
     msg: types.Message = callback.message
     text = lang.account_input.get(config.BOT_LANG)
     bot.edit_message_text(text, chat_id=msg.chat.id, message_id=msg.id)
-    users[msg.chat.id] = district_id, province_id
+    user, created = User.objects.update_or_create(pk=msg.chat.id)
+    user.district_id = district_id
+    user.province_id = province_id
+    user.save()
 
 
 @bot.message_handler(func=lambda msg: msg.text.count(' | ') == 1)
@@ -47,18 +49,22 @@ def check_by_province_and_district_name(message: types.Message):
 
 @bot.message_handler(func=lambda msg: msg.text.count(' | ') == 2)
 def check_by_province_and_district_and_account(message: types.Message):
-    district_id, province_id = users[message.chat.id]
+    user = User.objects.get(pk=message.chat.id)
+    district_id, province_id = user.district_id, user.province_id
     account = message.text.split(' | ')[-1]
+    msg = bot.reply_to(message, lang.loading.get(config.BOT_LANG))
     text = api.check_balance(account, province_id, district_id)
-    bot.reply_to(message, text, parse_mode='Markdown')
+    bot.edit_message_text(text, chat_id=msg.chat.id, message_id=msg.id, parse_mode='Markdown')
     text, markup = keyboards.menu(province_id, district_id, account)
     bot.send_message(message.chat.id, text, reply_markup=markup)
 
 
-@bot.message_handler(func=lambda msg: msg.chat.id in users)
+@bot.message_handler(func=lambda msg: User.objects.filter(pk=msg.chat.id).first())
 def check(message: types.Message):
-    district_id, province_id = users[message.chat.id]
+    user = User.objects.get(pk=message.chat.id)
+    district_id, province_id = user.district_id, user.province_id
+    msg = bot.reply_to(message, lang.loading.get(config.BOT_LANG))
     text = api.check_balance(message.text, province_id, district_id)
-    bot.reply_to(message, text, parse_mode='Markdown')
+    bot.edit_message_text(text, chat_id=msg.chat.id, message_id=msg.id, parse_mode='Markdown')
     text, markup = keyboards.menu(province_id, district_id, message.text)
     bot.send_message(message.chat.id, text, reply_markup=markup)

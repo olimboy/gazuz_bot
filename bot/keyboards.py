@@ -27,7 +27,7 @@ def menu(province_id, district_id, account=None):
     province_name, district_name = regions.province_and_district_by_id(province_id, district_id)
     markup.add(KeyboardButton(lang.provinces_btn.get(config.BOT_LANG)))
     if province_name != '' and district_name != '':
-        markup.add(province_name + ' | ' + district_name)
+        markup.add('📍 ' + province_name + ' | ' + district_name)
     if account:
-        markup.add(province_name + ' | ' + district_name + ' | ' + account)
+        markup.add('⚡️ ' + province_name + ' | ' + district_name + ' | ' + account)
     return lang.menu.get(config.BOT_LANG), markup

@@ -13,6 +13,7 @@ if 'runserver' in sys.argv:
     if config.BOT_LISTEN_TYPE == 'webhook':
         bot.set_webhook(config.BOT_WEBHOOK_URL)
     else:
+        bot.remove_webhook()
         Thread(target=bot.infinity_polling).start()
 
 @csrf_exempt

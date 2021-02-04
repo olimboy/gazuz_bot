@@ -11,7 +11,7 @@ with open(dir / 'regions.json') as f:
 regions = json.loads(regions_json)
 
 def provinces() -> list:
-    provinces = [{'name': province['AreaName'][config.BOT_LANG], 'id': province['Code']} for province in regions]
+    provinces = [{'name': province['AreaName']['uz'], 'id': province['Code']} for province in regions]
     return provinces
 
 def districts(province_id: str) -> tuple[dict, list]:
@@ -21,14 +21,14 @@ def districts(province_id: str) -> tuple[dict, list]:
             province = region
             break
     
-    districts = [{'name': district['AreaName'][config.BOT_LANG], 'id': district['Code']} for district in province['Children']['Area']]
-    province = {'name': province['AreaName'][config.BOT_LANG], 'id': province['Code']}
+    districts = [{'name': district['AreaName']['uz'], 'id': district['Code']} for district in province['Children']['Area']]
+    province = {'name': province['AreaName']['uz'], 'id': province['Code']}
     
     return province, districts
 
 def province_and_district_by_id(province_id: str, district_id: str) -> tuple[str, str]:
-    province = {'AreaName': {config.BOT_LANG: ''}}
-    district = {'AreaName': {config.BOT_LANG: ''}}
+    province = {'AreaName': {'uz': ''}}
+    district = {'AreaName': {'uz': ''}}
     for region in regions:
         if region['Code'] == province_id:
             province = region
@@ -37,16 +37,16 @@ def province_and_district_by_id(province_id: str, district_id: str) -> tuple[str
                     district = _district
                     break
             break
-    return province['AreaName'][config.BOT_LANG], district['AreaName'][config.BOT_LANG]
+    return province['AreaName']['uz'], district['AreaName']['uz']
 
 def province_and_district_by_name(province_name: str, district_name: str) -> tuple[str, str]:
     province = {'Code': None}
     district = {'Code': None}
     for region in regions:
-        if region['AreaName'][config.BOT_LANG] == province_name:
+        if region['AreaName']['uz'] == province_name:
             province = region
             for _district in region['Children']['Area']:
-                if _district['AreaName'][config.BOT_LANG] == district_name:
+                if _district['AreaName']['uz'] == district_name:
                     district = _district
                     break
             break
