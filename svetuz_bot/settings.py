@@ -29,8 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = os.getenv('DEBUG') == 'True'
 ALLOWED_HOSTS = ['*']
 
 
@@ -130,5 +129,5 @@ STATIC_URL = '/static/'
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 BOT_LANG = os.getenv('BOT_LANG', 'uz')
 BOT_LISTEN_TYPE = os.getenv('BOT_LISTEN_TYPE', 'webhook')
-BOT_WEBHOOK_URL = 'https://{0}/{1}'.format(os.getenv('HOST', ''), BOT_TOKEN)
+BOT_WEBHOOK_URL = 'https://{0}/{1}/'.format(os.getenv('HOST', ''), BOT_TOKEN)
 EK_URL = os.getenv('EK_URL')
