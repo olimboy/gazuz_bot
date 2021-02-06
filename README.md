@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/olimboy/svetuz_bot/workflows/commandDeploy%20SSH%20Server/badge.svg)](https://github.com/olimboy/svetuz_bot/actions)
+[![Actions Status](https://github.com/olimboy/svetuz_bot/workflows/Deploy%20SSH%20Server/badge.svg)](https://github.com/olimboy/svetuz_bot/actions)
 
 
 ## Ushbu bot orqali Elektr Energiya hisob balansini tekshirish mumkin.
