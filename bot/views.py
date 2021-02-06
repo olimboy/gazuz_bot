@@ -12,7 +12,7 @@ if 'runserver' in sys.argv:
     print('Bot Listen Type:', config.BOT_LISTEN_TYPE)
     if config.BOT_LISTEN_TYPE == 'webhook':
         bot.set_webhook(config.BOT_WEBHOOK_URL)
-    else:
+    elif config.BOT_LISTEN_TYPE == 'polling':
         bot.remove_webhook()
         Thread(target=bot.infinity_polling).start()
 
