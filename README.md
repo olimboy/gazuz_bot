@@ -11,4 +11,5 @@
 - ek.uz sayti (balansni tekshirish uchun);
 - docker & docker-compose (containerlashtirish uchun);
 
-### Link: [https://t.me/svetuz_bot](https://t.me/svetuz_bot)
+
+### Link: [https://t.me/svetuz_bot](https://t.me/svetuz_bot)!
