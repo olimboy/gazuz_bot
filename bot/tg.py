@@ -41,13 +41,13 @@ def districts(callback: types.CallbackQuery):
     user.save()
 
 
-@bot.message_handler(func=lambda msg: msg.text.count(' | ') == 1)
+@bot.message_handler(func=lambda msg: msg.text and msg.text.count(' | ') == 1)
 def check_by_province_and_district_name(message: types.Message):
     text = lang.account_input.get(config.BOT_LANG)
     bot.reply_to(message, text)
 
 
-@bot.message_handler(func=lambda msg: msg.text.count(' | ') == 2)
+@bot.message_handler(func=lambda msg: msg.text and msg.text.count(' | ') == 2)
 def check_by_province_and_district_and_account(message: types.Message):
     user = User.objects.get(pk=message.chat.id)
     district_id, province_id = user.district_id, user.province_id
