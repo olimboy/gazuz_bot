@@ -8,7 +8,7 @@ from threading import Thread
 from django.views.decorators.csrf import csrf_exempt
 import sys
 
-if 'runserver' in sys.argv:
+if 'runserver2' in sys.argv:
     print('Bot Listen Type:', config.BOT_LISTEN_TYPE)
     if config.BOT_LISTEN_TYPE == 'webhook':
         bot.set_webhook(config.BOT_WEBHOOK_URL)

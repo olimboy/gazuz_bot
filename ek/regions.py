@@ -10,9 +10,32 @@ with open(dir / 'regions.json') as f:
 
 regions = json.loads(regions_json)
 
+
+def get_province(province_id: str) -> str:
+    province = {'AreaName': {'uz': ''}}
+    for region in regions:
+        if region['Code'] == province_id:
+            province = region
+            break
+    return province['AreaName']['uz']
+
+
+def get_district(province_id, district_id) -> str:
+    district = {'AreaName': {'uz': ''}}
+    for region in regions:
+        if region['Code'] == province_id:
+            for _district in region['Children']['Area']:
+                if _district['Code'] == district_id:
+                    district = _district
+                    break
+            break
+    return district['AreaName']['uz']
+
+
 def provinces() -> list:
     provinces = [{'name': province['AreaName']['uz'], 'id': province['Code']} for province in regions]
     return provinces
+
 
 def districts(province_id: str) -> tuple[dict, list]:
     province = None
@@ -20,11 +43,13 @@ def districts(province_id: str) -> tuple[dict, list]:
         if region['Code'] == province_id:
             province = region
             break
-    
-    districts = [{'name': district['AreaName']['uz'], 'id': district['Code']} for district in province['Children']['Area']]
+
+    districts = [{'name': district['AreaName']['uz'], 'id': district['Code']} for district in
+                 province['Children']['Area']]
     province = {'name': province['AreaName']['uz'], 'id': province['Code']}
-    
+
     return province, districts
+
 
 def province_and_district_by_id(province_id: str, district_id: str) -> tuple[str, str]:
     province = {'AreaName': {'uz': ''}}
@@ -38,6 +63,7 @@ def province_and_district_by_id(province_id: str, district_id: str) -> tuple[str
                     break
             break
     return province['AreaName']['uz'], district['AreaName']['uz']
+
 
 def province_and_district_by_name(province_name: str, district_name: str) -> tuple[str, str]:
     province = {'Code': None}

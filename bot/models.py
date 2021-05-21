@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 class User(models.Model):
@@ -10,6 +11,14 @@ class User(models.Model):
     district_id = models.CharField(max_length=30)
     account = models.CharField(max_length=30)
 
-
     def __str__(self):
         return f'{self.id}'
+
+
+class Province(User):
+    class Meta:
+        managed = False
+
+
+class District(Province):
+    pass
