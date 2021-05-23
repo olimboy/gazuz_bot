@@ -20,5 +20,6 @@ class Province(User):
         managed = False
 
 
-class District(Province):
-    pass
+class District(User):
+    class Meta:
+        managed = False
