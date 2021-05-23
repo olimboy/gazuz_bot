@@ -1,12 +1,12 @@
-from django.shortcuts import render
+import sys
+from threading import Thread
+
 from django.conf import settings as config
 from django.http import HttpRequest, HttpResponseForbidden, HttpResponse
-from telebot import types
-from .tg import bot
-from django.conf import settings as config
-from threading import Thread
 from django.views.decorators.csrf import csrf_exempt
-import sys
+from telebot import types
+
+from .tg import bot
 
 if 'runserver2' in sys.argv:
     print('Bot Listen Type:', config.BOT_LISTEN_TYPE)
@@ -15,6 +15,7 @@ if 'runserver2' in sys.argv:
     elif config.BOT_LISTEN_TYPE == 'polling':
         bot.remove_webhook()
         Thread(target=bot.infinity_polling).start()
+
 
 @csrf_exempt
 def webhook(request: HttpRequest):

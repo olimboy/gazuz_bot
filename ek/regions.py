@@ -33,8 +33,7 @@ def get_district(province_id, district_id) -> str:
 
 
 def provinces() -> list:
-    provinces = [{'name': province['AreaName']['uz'], 'id': province['Code']} for province in regions]
-    return provinces
+    return [{'name': province['AreaName']['uz'], 'id': province['Code']} for province in regions]
 
 
 def districts(province_id: str) -> tuple[dict, list]:
@@ -44,8 +43,9 @@ def districts(province_id: str) -> tuple[dict, list]:
             province = region
             break
 
-    districts = [{'name': district['AreaName']['uz'], 'id': district['Code']} for district in
-                 province['Children']['Area']]
+    districts = [{'name': district['AreaName']['uz'], 'id': district['Code']}
+                 for district in province['Children']['Area']
+                 ]
     province = {'name': province['AreaName']['uz'], 'id': province['Code']}
 
     return province, districts
@@ -66,8 +66,8 @@ def province_and_district_by_id(province_id: str, district_id: str) -> tuple[str
 
 
 def province_and_district_by_name(province_name: str, district_name: str) -> tuple[str, str]:
-    province = {'Code': None}
-    district = {'Code': None}
+    province = {'Code': ''}
+    district = {'Code': ''}
     for region in regions:
         if region['AreaName']['uz'] == province_name:
             province = region

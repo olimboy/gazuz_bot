@@ -1,12 +1,11 @@
-{% extends "admin/change_list.html" %}
-{% load svet_uz %}
+{% extends "admin/change_form.html" %}
 {% block title %}
-    Users by Province
+    {{ province }} - Users by District
 {% endblock %}
 {% block content_title %}
-    <h1> Users by Province </h1>
+    <h1>{{ province }} - Users by District </h1>
 {% endblock %}
-{% block result_list %}
+{% block content %}
 <style>
 .results table {
     counter-reset: rowNumber;
@@ -18,6 +17,9 @@
 
 .results tbody td.rank::before {
     content: counter(rowNumber);;
+}
+table{
+    width: 100%;
 }
 </style>
 <div class="results">
@@ -31,7 +33,7 @@
         </th>
         <th>
           <div class="text">
-            <a href="#">Province</a>
+            <a href="#">District</a>
           </div>
         </th>
         <th>
@@ -42,10 +44,10 @@
       </tr>
     </thead>
     <tbody>
-      {% for row in province %}
+      {% for row in districts %}
       <tr class="{% cycle 'row1' 'row2' %}">
         <td class="rank">  </td>
-        <td><a href="{{ row.province_id }}/change">{{ row.province }} </a></td>
+        <td> {{ row.district }} </td>
         <td> {{ row.count }} </td>
       </tr>
       {% endfor %}
