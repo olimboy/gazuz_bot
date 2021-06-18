@@ -6,7 +6,7 @@ from . import keyboards, lang
 from bot.models import User
 from chatbase import Message
 
-bot = telebot.TeleBot(config.BOT_TOKEN)
+bot = telebot.TeleBot(config.BOT_TOKEN, num_threads=4)
 
 
 def send_analytics(chat_id, msg, user: User):
