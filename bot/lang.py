@@ -1,6 +1,6 @@
 hello = {
-    'uz': '🙋‍♂️ Assalomu alaykum! Botimiz orqali Elektr Energiya hisobi balansini tekshirishingiz mumkin!', 
-    'oz': '🙋‍♂️ Aссалому алайкум! Ботимиз орқали Электр Энергия ҳисоби балансини текширишингиз мумкин!'
+    'uz': '🙋‍♂️ Assalomu alaykum! Botimiz orqali Gaz hisobi balansini tekshirishingiz mumkin!', 
+    'oz': '🙋‍♂️ Aссалому алайкум! Ботимиз орқали Газ ҳисоби балансини текширишингиз мумкин!'
 }
 provinces = {
     'uz': '👇 Viloyatingizni tanglang',
