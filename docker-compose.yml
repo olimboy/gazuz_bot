@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  svetuz_bot:
+  gazuz_bot:
     image: gazuz_bot
     container_name: gazuz_bot
     build: ./
