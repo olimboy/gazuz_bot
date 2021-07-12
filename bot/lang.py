@@ -26,3 +26,7 @@ loading = {
     'uz': "🔄 So'rovingiz amalga oshirilmoqda...",
     'oz': '🔄 Сўровингиз амалга оширилмоқда...'
 }
+count = {
+    'uz': "Foydalanuvchilar soni",
+    'oz': "Фойдаланувчилар сони"
+}
