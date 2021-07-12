@@ -1,4 +1,4 @@
-## Ushbu bot orqali Elektr Energiya hisob balansini tekshirish mumkin.
+## Ushbu bot orqali Gaz hisob balansini tekshirish mumkin.
 ### Botni yaratishda quyidagi texnologiyalardan foydalanildi.
 
 - django (webhook va db uchun);
