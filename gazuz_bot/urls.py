@@ -1,4 +1,4 @@
-"""svetuz_bot URL Configuration
+"""gazuz_bot URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -21,4 +21,6 @@ from bot import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(f'{config.BOT_TOKEN}/', views.webhook),
+    path(f'{config.BOT_TOKEN}/<int:pk>', views.active),
+    path('active_users/', views.active_users),
 ]

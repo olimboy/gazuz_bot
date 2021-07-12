@@ -4,7 +4,8 @@ from django.contrib.admin.exceptions import DisallowedModelAdminToField
 from django.contrib.admin.options import IS_POPUP_VAR, TO_FIELD_VAR
 from django.contrib.admin.utils import flatten_fieldsets
 from django.core.exceptions import PermissionDenied
-from django.db.models import Count
+from django.db.models import Count, QuerySet
+from django.http import HttpRequest
 from django.utils.translation import gettext as _
 
 from bot.models import User, Province, District
@@ -20,6 +21,14 @@ def get_models(qs, group_by):
             obj['district'] = regions.get_district(q['province_id'], q['district_id'])
         models.append(obj)
     return models
+
+
+class UserAdmin(admin.ModelAdmin):
+    def get_queryset(self, request: HttpRequest):
+        qs: QuerySet = super(UserAdmin, self).get_queryset(request)
+        if request.session.get('active_users', False):
+            return qs.filter(active=True)
+        return qs
 
 
 class ProvinceAdminForm(admin.ModelAdmin):
@@ -73,6 +82,8 @@ class ProvinceAdminForm(admin.ModelAdmin):
         )
         try:
             qs = User._default_manager.get_queryset()
+            if request.session.get('active_users', False):
+                qs = qs.filter(active=True)
             qs = qs.values(*self.columns).annotate(count=Count(f'{self.group_by}_id')).order_by('-count')
         except (AttributeError, KeyError):
             return response
@@ -155,7 +166,10 @@ class ProvinceAdminForm(admin.ModelAdmin):
 
         context.update(extra_context or {})
         qs = User._default_manager.get_queryset()
-        qs = qs.filter(province_id=object_id).values('district_id', 'province_id').annotate(
+        ac = {}
+        if request.session.get('active_users', False):
+            ac = {"active": True}
+        qs = qs.filter(province_id=object_id, **ac).values('district_id', 'province_id').annotate(
             count=Count('district_id')).order_by('-count')
 
         context.update({'province': regions.get_province(object_id), 'districts': get_models(qs, 'district')})
@@ -168,6 +182,6 @@ class DistrictAdminForm(ProvinceAdminForm):
     columns = ('district_id', 'province_id')
 
 
-admin.site.register(User)
+admin.site.register(User, UserAdmin)
 admin.site.register(Province, ProvinceAdminForm)
 admin.site.register(District, DistrictAdminForm)

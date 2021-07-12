@@ -22,7 +22,7 @@ def send_analytics(chat_id, msg, user: User):
         platform='Telegram',
         message=msg,
         intent=intent,
-        version='1.0',
+        version='2.0',
         user_id=chat_id,
     )
     message.not_handled = True

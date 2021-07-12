@@ -2,8 +2,8 @@ version: "3"
 
 services:
   svetuz_bot:
-    image: svetuz_bot
-    container_name: svetuz_bot
+    image: gazuz_bot
+    container_name: gazuz_bot
     build: ./
     restart: always
     volumes:
