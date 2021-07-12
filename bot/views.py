@@ -11,7 +11,7 @@ from telebot import types
 from .models import User
 from .tg import bot
 
-if 'runserver' in sys.argv:
+if 'runserver2' in sys.argv:
     print('Bot Listen Type:', config.BOT_LISTEN_TYPE)
     if config.BOT_LISTEN_TYPE == 'webhook':
         bot.set_webhook(config.BOT_WEBHOOK_URL)
